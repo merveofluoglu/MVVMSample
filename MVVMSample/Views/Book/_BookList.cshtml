@@ -1,0 +1,70 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using MVVMEntityLayer
+@using CommonLibrary.PagerClasses
+
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Edit</th>
+            <th>Delete</th>
+            <th>
+                <a href="#" data-custom-cmd="sort" data-custom-arg="Name">Book Title</a>
+            </th>
+            <th>
+                <a href="#" data-custom-cmd="sort" data-custom-arg="Author">Author</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="DateOfIssue">Year of Puplication</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="Cost">Price</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="SellStartDate">On Sale</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="SellEndDate">Sale End Date</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="PaperType">Paper Type</a>
+            </th>
+            <th class="text-right">
+                <a href="#" data-custom-cmd="sort" data-custom-arg="IsHardcover">Hardcover</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Book item in Model.Books)
+        {
+            <tr>
+                <td>
+                    <a href="#" data-custom-cmd="edit" data-custom-arg="@item.Id" class="btn btn-info">Edit</a>
+                </td>
+                <td>
+                    <a href="#" onclick="deleteBook(@item.Id)" class="btn btn-secondary">Delete</a>
+                </td>
+                <td>@Html.DisplayFor(m => item.Name)</td>
+                <td>@Html.DisplayFor(m => item.Author)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.DateOfIssue)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.Cost)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.SellStartDate)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.SellEndDate)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.PaperType)</td>
+                <td class="text-right">@Html.DisplayFor(m => item.IsHardcover)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<ul class="pagination">
+
+    @foreach (PagerItem item in Model.Pages)
+    {
+        <li class="page-item @item.CssClass">
+            <a class="page-link" href="#" data-custom-cmd="page" data-custom-arg="@item.Argument" title="@item.Tooltip">@Html.Raw(item.Text)</a>
+        </li>
+    }
+
+</ul>

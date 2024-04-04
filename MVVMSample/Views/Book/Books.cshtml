@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model MVVMViewModelLayer.BookViewModel
+@{
+    ViewData["Title"] = "Books";
+}
+
+<h1>Books</h1>
+
+<form method="post">
+
+    <partial name="~/Views/Shared/_StandartViewModelHidden.cshtml" />
+
+    @if (Model.IsDetailVisible)
+    {
+        <partial name="_BookDetail.cshtml" for="SelectedBook" />
+    }
+    else
+    {
+        <partial name="_BookSearch.cshtml" />
+        <partial name="_BookList" />        
+    }    
+
+</form>
+
+@section Scripts
+{
+@*     <partial name="~/Views/Shared/_ValidationScriptsPartial.cshtml" />
+ *@
+    <script>
+        $(document).ready(function () {
+
+            $("[data-custom-cmd]").on("click", function (event) {
+                
+                event.preventDefault();
+
+                $("#EventCommand").val($(this).data("custom-cmd"));
+
+                $("#EventArgument").val($(this).data("custom-arg"));
+
+                if($("#EventCommand").val() == "sort")
+                {
+                    $("#SortExpression").val($(this).data("custom-arg"));
+                }
+
+                $("form").submit();
+
+            });
+
+        });
+
+        function cancel () {
+            $("#EventCommand").val("cancel");
+            $("#EventArgument").val("");
+            return true;
+        }
+
+        function deleteBook(id) {
+            if (confirm("Delete this book?")) {
+                $("#EventCommand").val("delete");
+                $("#EventArgument").val(id);
+
+                $("#form").submit();
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    </script>
+}
